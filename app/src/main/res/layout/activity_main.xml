@@ -19,6 +19,7 @@
         android:textAlignment="center"
         android:textColor="#ffffff"
         android:textSize="38sp"
+        android:fontFamily="sans-serif"
         android:textStyle="bold|italic" />
 
 <!--    below is a linear layout that aligns content horizontally-->
@@ -43,7 +44,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="sign in"
+            android:text="👮sign in"
             android:textSize="25sp"
             android:padding="10dp"
             android:layout_marginLeft="20dp"

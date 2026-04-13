@@ -19,4 +19,77 @@
         android:textSize="38sp"
         android:textStyle="bold|italic" />
 
+<!--    below is a card view -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="10dp"
+        android:layout_margin="10dp"
+        android:padding="10dp" >
+
+<!--        below is a linear layout that aligns content vertically-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+<!--            below is the email edit text-->
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="✉️   Enter Email"
+                android:inputType="textEmailAddress"
+                android:textColorHint="#000"
+                android:padding="10dp"
+                android:layout_margin="8dp"
+                android:minHeight="48dp"/>
+
+
+            <!--            below is the password edit text-->
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="🔐   Enter Password"
+                android:inputType="textPassword"
+                android:textColorHint="#000"
+                android:padding="10dp"
+                android:layout_margin="8dp"
+                android:minHeight="48dp"/>
+
+
+            <!-- Sign in Button -->
+            <Button
+                android:id="@+id/btnSignin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="👮Sign in"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#6200EE"
+                android:textColor="#ffffff"
+                android:minHeight="48dp"/>
+
+            <!-- Redirect to Sign Up -->
+            <TextView
+                android:id="@+id/Signuptxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Don't have an account? Sign up"
+                android:textColor="#6200EE"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:minHeight="48dp"
+                android:gravity="center"/>
+
+
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
 </LinearLayout>
