@@ -42,6 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter Username"
+                android:textColor="#000"
                 android:inputType="textPersonName"
                 android:padding="12dp" />
 
@@ -52,6 +53,16 @@
                 android:layout_height="wrap_content"
                 android:hint="Enter Email"
                 android:inputType="textEmailAddress"
+                android:layout_marginTop="12dp"
+                android:padding="12dp" />
+
+            <!-- Phone Number Input (NEW) -->
+            <EditText
+                android:id="@+id/etPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Phone Number"
+                android:inputType="phone"
                 android:layout_marginTop="12dp"
                 android:padding="12dp" />
 
@@ -80,6 +91,7 @@
                     android:padding="8dp"
                     android:src="@android:drawable/ic_menu_view"
                     android:contentDescription="Show Password" />
+
             </LinearLayout>
 
             <!-- Sign Up Button -->
@@ -91,6 +103,17 @@
                 android:layout_marginTop="20dp"
                 android:backgroundTint="#6200EE"
                 android:textColor="#ffffff" />
+
+            <!-- Redirect to Sign Up -->
+            <TextView
+                android:id="@+id/tvSigninRedirect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Don't have an account? Sign in"
+                android:textColor="#6200EE"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center"
+                android:textStyle="bold|italic" />
 
         </LinearLayout>
 

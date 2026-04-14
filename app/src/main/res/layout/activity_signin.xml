@@ -6,89 +6,103 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#f5f5f5"
     tools:context=".Signin">
 
+    <!-- Header Title -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape"
-        android:padding="12dp"
-        android:text="Sign in"
+        android:padding="16dp"
+        android:text="Sign In"
         android:textAlignment="center"
         android:textColor="#ffffff"
-        android:textSize="38sp"
+        android:textSize="32sp"
         android:textStyle="bold|italic" />
 
-<!--    below is a card view -->
+    <!-- Card container for login form -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="10dp"
-        android:layout_margin="10dp"
-        android:padding="10dp" >
+        android:layout_margin="20dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp">
 
-<!--        below is a linear layout that aligns content vertically-->
+        <!-- Inner layout inside card -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="20dp">
 
-<!--            below is the email edit text-->
+            <!-- Email Input -->
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="✉️   Enter Email"
+                android:hint="Enter Email"
                 android:inputType="textEmailAddress"
-                android:textColorHint="#000"
-                android:padding="10dp"
-                android:layout_margin="8dp"
-                android:minHeight="48dp"/>
+                android:padding="12dp" />
 
-
-            <!--            below is the password edit text-->
-            <EditText
-                android:id="@+id/password"
+            <!-- Password Input Layout with Eye Icon -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="🔐   Enter Password"
-                android:inputType="textPassword"
-                android:textColorHint="#000"
-                android:padding="10dp"
-                android:layout_margin="8dp"
-                android:minHeight="48dp"/>
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp">
 
+                <!-- Password field -->
+                <EditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Enter Password"
+                    android:inputType="textPassword"
+                    android:padding="12dp" />
 
-            <!-- Sign in Button -->
+                <!-- Eye icon to toggle password visibility -->
+                <ImageView
+                    android:id="@+id/ivTogglePassword"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="8dp"
+                    android:src="@android:drawable/ic_menu_view"
+                    android:contentDescription="Show Password" />
+            </LinearLayout>
+
+            <!-- Sign In Button -->
             <Button
                 android:id="@+id/btnSignin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="👮Sign in"
+                android:text="Sign In"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="#6200EE"
-                android:textColor="#ffffff"
-                android:minHeight="48dp"/>
+                android:textColor="#ffffff" />
 
             <!-- Redirect to Sign Up -->
             <TextView
-                android:id="@+id/Signuptxt"
+                android:id="@+id/tvSignupRedirect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Don't have an account? Sign up"
                 android:textColor="#6200EE"
                 android:layout_marginTop="16dp"
                 android:layout_gravity="center"
-                android:textStyle="bold"
-                android:minHeight="48dp"
-                android:gravity="center"/>
+                android:textStyle="bold" />
 
+            <!-- Loading spinner (hidden by default) -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:visibility="gone" />
 
         </LinearLayout>
-
-
 
     </androidx.cardview.widget.CardView>
 
