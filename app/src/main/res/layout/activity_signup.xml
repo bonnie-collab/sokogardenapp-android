@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#f5f5f5"
+    android:background="#ffffff"
     tools:context=".Signup">
 
     <!-- Header Title -->
@@ -114,6 +114,15 @@
                 android:layout_marginTop="16dp"
                 android:layout_gravity="center"
                 android:textStyle="bold|italic" />
+
+            <!-- Loading spinner (hidden by default) -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:visibility="gone" />
 
         </LinearLayout>
 

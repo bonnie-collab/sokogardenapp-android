@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fddf"
+    android:background="#ffffff"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -22,36 +22,89 @@
         android:fontFamily="sans-serif"
         android:textStyle="bold|italic" />
 
+    <!-- Welcome Card -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="6dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:background="#E3F2FD">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome to SokoGarden!"
+                android:textColor="#1976D2"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Your one-stop shop for fresh garden produce. Discover the best deals and quality items right at your fingertips!"
+                android:textColor="#546E7A"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
 <!--    below is a linear layout that aligns content horizontally-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center">
 
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="sign up"
-            android:textSize="25sp"
+            android:text="Sign Up"
+            android:textSize="18sp"
             android:padding="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="8dp"
-            android:id="@+id/signupBtn"/>
+            android:layout_margin="8dp"
+            android:id="@+id/signupBtn"
+            android:backgroundTint="#6200EE"
+            android:textColor="#ffffff"/>
 
 <!--        sign in button -->
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="👮sign in"
-            android:textSize="25sp"
+            android:text="Sign In"
+            android:textSize="18sp"
             android:padding="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="8dp"
-            android:id="@+id/signinBtn"/>
+            android:layout_margin="8dp"
+            android:id="@+id/signinBtn"
+            android:backgroundTint="#03DAC5"
+            android:textColor="#000000"/>
 
     </LinearLayout>
 
+<!--    below is our progressbar-->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+<!--    below is our recycleview configured with GridLayoutManager for 2 columns -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerView"
+        android:layout_marginTop="10dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        tools:listitem="@layout/single_item"/>
 
 </LinearLayout>

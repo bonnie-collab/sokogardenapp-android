@@ -78,12 +78,6 @@ class Signin : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Show spinner
-            progressBar.visibility = View.VISIBLE
-
-            // Disable button to prevent multiple clicks
-            btnSignin.isEnabled = false
-
             val api = "https://kbenkamotho.alwaysdata.net/api/signin"
 
             val data = RequestParams()
@@ -92,8 +86,9 @@ class Signin : AppCompatActivity() {
 
             val helper = ApiHelper(applicationContext)
 
-            // Call API
-            helper.post_login(api, data)
+            // Call API and pass both the progress bar AND the sign-in button
+            // This ensures the button is re-enabled automatically after success/failure
+            helper.post_login(api, data, progressBar, btnSignin)
         }
     }
 }

@@ -3,8 +3,10 @@ package com.example.sokogardenapp
 import android.content.Context
 import android.content.Intent
 import android.view.View
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.loopj.android.http.AsyncHttpClient
@@ -18,7 +20,9 @@ import org.json.JSONObject
 
 class ApiHelper(var context: Context) {
     //POST
-    fun post(api: String, params: RequestParams) {
+    fun post(api: String, params: RequestParams, progressBar: ProgressBar? = null, actionButton: Button? = null) {
+        progressBar?.visibility = View.VISIBLE
+        actionButton?.isEnabled = false
         Toast.makeText(context, "Please wait for response", Toast.LENGTH_LONG).show()
         val client = AsyncHttpClient(true, 80, 443)
 
@@ -28,7 +32,18 @@ class ApiHelper(var context: Context) {
                 headers: Array<out Header>?,
                 response: JSONObject?
             ) {
-                Toast.makeText(context, "Response: $response", Toast.LENGTH_SHORT).show()
+                progressBar?.visibility = View.GONE
+                actionButton?.isEnabled = true
+                
+                val message = response?.optString("message")
+                if (message != null && message.contains("success", ignoreCase = true)) {
+                    Toast.makeText(context, "Registration Successful. Please Sign In.", Toast.LENGTH_LONG).show()
+                    val intent = Intent(context, Signin::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    context.startActivity(intent)
+                } else {
+                    Toast.makeText(context, "Response: $message", Toast.LENGTH_SHORT).show()
+                }
             }
 
             override fun onFailure(
@@ -37,13 +52,29 @@ class ApiHelper(var context: Context) {
                 responseString: String?,
                 throwable: Throwable?
             ) {
+                progressBar?.visibility = View.GONE
+                actionButton?.isEnabled = true
                 Toast.makeText(context, "Error: $responseString", Toast.LENGTH_LONG).show()
+            }
+            
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                throwable: Throwable?,
+                errorResponse: JSONObject?
+            ) {
+                progressBar?.visibility = View.GONE
+                actionButton?.isEnabled = true
+                val message = errorResponse?.optString("message") ?: "Operation failed"
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
             }
         })
     }
 
     //Requires Access Token
-    fun post_login(api: String, params: RequestParams) {
+    fun post_login(api: String, params: RequestParams, progressBar: ProgressBar? = null, actionButton: Button? = null) {
+        progressBar?.visibility = View.VISIBLE
+        actionButton?.isEnabled = false
         Toast.makeText(context, "Please wait for response", Toast.LENGTH_LONG).show()
         val client = AsyncHttpClient(true, 80, 443)
 
@@ -53,6 +84,10 @@ class ApiHelper(var context: Context) {
                 headers: Array<out Header>?,
                 response: JSONObject?
             ) {
+                // IMPORTANT: Always hide progress bar and re-enable button
+                progressBar?.visibility = View.GONE
+                actionButton?.isEnabled = true
+                
                 val message = response?.optString("message")
                 if (message == "Login successful") {
                     val user = response.optJSONObject("user")
@@ -73,6 +108,7 @@ class ApiHelper(var context: Context) {
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     context.startActivity(intent)
                 } else {
+                    // This handles cases where API returns 200 OK but message is "Login failed"
                     Toast.makeText(context, "$message", Toast.LENGTH_LONG).show()
                 }
             }
@@ -83,27 +119,41 @@ class ApiHelper(var context: Context) {
                 responseString: String?,
                 throwable: Throwable?
             ) {
+                progressBar?.visibility = View.GONE
+                actionButton?.isEnabled = true
                 Toast.makeText(context, "Error: $responseString", Toast.LENGTH_LONG).show()
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                throwable: Throwable?,
+                errorResponse: JSONObject?
+            ) {
+                progressBar?.visibility = View.GONE
+                actionButton?.isEnabled = true
+                val message = errorResponse?.optString("message") ?: "Login failed"
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
             }
         })
     }
 
 fun loadProducts(url: String, recyclerView: RecyclerView, progressBar: ProgressBar? = null) {
     progressBar?.visibility = View.VISIBLE
-    val layoutManager = LinearLayoutManager(context)
-    recyclerView.layoutManager = layoutManager
     val client = AsyncHttpClient(true, 80, 443)
 
-    client.get(context, url, null, "application/json", object : JsonHttpResponseHandler() {
+    client.get(url, object : JsonHttpResponseHandler() {
         override fun onSuccess(
             statusCode: Int,
             headers: Array<out Header>?,
             response: JSONArray
         ) {
             progressBar?.visibility = View.GONE
-            // val productList = ProductAdapter.fromJsonArray(response)
-            // val adapter = ProductAdapter(productList)
-            // recyclerView.adapter = adapter
+            val productList = ProductAdapter.fromJsonArray(response)
+            val adapter = ProductAdapter(productList)
+            recyclerView.adapter = adapter
+            // Changed to GridLayoutManager with 2 columns
+            recyclerView.layoutManager = GridLayoutManager(context, 2)
         }
 
         override fun onFailure(
@@ -113,7 +163,17 @@ fun loadProducts(url: String, recyclerView: RecyclerView, progressBar: ProgressB
             throwable: Throwable?
         ) {
             progressBar?.visibility = View.GONE
-            Toast.makeText(context, "Failed to load products", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Failed to load products: $responseString", Toast.LENGTH_SHORT).show()
+        }
+
+        override fun onFailure(
+            statusCode: Int,
+            headers: Array<out Header>?,
+            throwable: Throwable?,
+            errorResponse: JSONObject?
+        ) {
+            progressBar?.visibility = View.GONE
+            Toast.makeText(context, "Error: ${errorResponse.toString()}", Toast.LENGTH_SHORT).show()
         }
     })
 }
