@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFAFA"
+    tools:context=".PaymentActivity">
+
+    <!--    Below is a Text View -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Complete Payment with M-Pesa"
+        android:textSize="32sp"
+        android:textAlignment="center"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:textColor="#04A30A"/>
+
+    <!--    Below is a cardview that holds all our contents -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardElevation="12dp"
+        app:cardCornerRadius="15dp"
+        android:background="#4C11BA">
+
+        <!--        Below is a LinearLayout -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="#D7C9F1">
+
+            <!--                Below is a TextView where the name of the Product shall be binded/attached -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtProductName"
+                android:text="Product Name"
+                android:textSize="20sp"
+                android:textStyle="bold|italic"
+                android:textColor="#320229" />
+
+            <!--            Below is an ImageView for the product Image -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:id="@+id/imgProduct"
+                android:src="@mipmap/ic_launcher"
+                android:scaleType="fitXY"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp" />
+
+            <!--            Below is the TextView for the product_cost -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtProductCost"
+                android:text="Kes 1000"
+                android:textSize="30sp"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                android:textColor="#000F65"
+                android:fontFamily="sans-serif-condensed-light" />
+
+            <!--            Below is an EditText for entering mobile number -->
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/phone"
+                android:hint="Enter Phone number e.g 2547223..."
+                android:textColorHint="#000"
+                android:textColor="#000"
+                android:padding="15dp"
+                android:layout_marginTop="10dp"
+                android:background="#F1E1E1" />
+
+            <!--            Below is a button to complete the payment action -->
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/pay"
+                android:text="Pay Now"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginRight="70dp"
+                android:backgroundTint="#C508E6"
+                android:textColor="#CBF3ED"
+                android:textSize="23sp" />
+
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</LinearLayout>

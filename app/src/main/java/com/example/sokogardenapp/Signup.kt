@@ -91,7 +91,7 @@ class Signup : AppCompatActivity() {
             }
 
             //specify the API endpoint
-            val api = "https://kbenkamotho.alwaysdata.net/api/signup"
+            val api = "https://bonnie.alwaysdata.net/api/signup"
 
             //create a request params
             val data = RequestParams()

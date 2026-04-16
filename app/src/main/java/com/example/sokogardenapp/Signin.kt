@@ -78,7 +78,7 @@ class Signin : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val api = "https://kbenkamotho.alwaysdata.net/api/signin"
+            val api = "https://bonnie.alwaysdata.net/api/signin"
 
             val data = RequestParams()
             data.put("email", mail)
