@@ -70,6 +70,8 @@
             android:textSize="18sp"
             android:padding="10dp"
             android:layout_margin="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_weight="1"
             android:id="@+id/signupBtn"
             android:backgroundTint="#6200EE"
             android:textColor="#ffffff"/>
@@ -82,10 +84,25 @@
             android:text="Sign In"
             android:textSize="18sp"
             android:padding="10dp"
+            android:layout_marginLeft="4dp"
+            android:layout_weight="1"
             android:layout_margin="8dp"
             android:id="@+id/signinBtn"
-            android:backgroundTint="#03DAC5"
-            android:textColor="#000000"/>
+            android:backgroundTint="#03DAC5"/>
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About"
+            android:textSize="18sp"
+            android:padding="10dp"
+            android:layout_margin="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_weight="1"
+            android:id="@+id/aboutBtn"
+            android:backgroundTint="#03DAC5"/>
+
 
     </LinearLayout>
 

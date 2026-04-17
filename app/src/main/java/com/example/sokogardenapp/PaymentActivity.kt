@@ -1,6 +1,5 @@
 package com.example.sokogardenapp
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -19,82 +18,72 @@ class PaymentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_payment)
+        
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-//        find the views by use of their ids
+        // Find the views by their ids
         val txtProductName = findViewById<TextView>(R.id.txtProductName)
         val imgProduct = findViewById<ImageView>(R.id.imgProduct)
         val txtProductCost = findViewById<TextView>(R.id.txtProductCost)
         val etPhone = findViewById<EditText>(R.id.phone)
         val btnPay = findViewById<Button>(R.id.pay)
 
-//        retriew data passed to the previous activity
+        // Retrieve data passed from the previous activity
         val product_name = intent.getStringExtra("product_name")
-        val product_description = intent.getStringExtra("product_description")
         val product_cost = intent.getIntExtra("product_cost", 0)
         val product_photo = intent.getStringExtra("product_photo")
 
-        // Set the data to the views passed from the previous activity
+        // Set the data to the views
         txtProductName.text = product_name
         txtProductCost.text = "Ksh $product_cost"
         
-        // specify the image url
+        // Image URL (using the correct domain)
         val imageUrl = "https://bonnie.alwaysdata.net/static/images/$product_photo"
         
-        // Use Glide to load the image
         Glide.with(this)
             .load(imageUrl)
             .placeholder(R.mipmap.ic_launcher)
             .into(imgProduct)
 
-        //when the pay button is clicked
+        // Pay button listener
         btnPay.setOnClickListener {
-            
-            // 1. Get and trim the phone number first
-            val phoneNumber = etPhone.text.toString().trim()
+            var phoneNumber = etPhone.text.toString().trim()
 
-            // 2. Validate the phone number BEFORE doing anything else
             if (phoneNumber.isEmpty()) {
                 etPhone.error = "Phone number is required"
                 return@setOnClickListener
             }
             
-            // Accepts 10 digits (07...) or 12 digits (254...)
-            if (phoneNumber.length != 10 && phoneNumber.length != 12) {
-                etPhone.error = "Invalid phone number (Use 10 or 12 digits)"
+            // Format phone number to 254...
+            if (phoneNumber.startsWith("0")) {
+                phoneNumber = "254" + phoneNumber.substring(1)
+            } else if (phoneNumber.startsWith("+254")) {
+                phoneNumber = phoneNumber.substring(1)
+            } else if (phoneNumber.length == 9) {
+                phoneNumber = "254" + phoneNumber
+            }
+
+            if (phoneNumber.length != 12) {
+                etPhone.error = "Invalid phone number format. Use 2547XXXXXXXX"
                 return@setOnClickListener
             }
 
-            // specify the API endpoint for paying with M-Pesa
-            val api = "https://kbenkamotho.alwaysdata.net/api/mpesa_payment"
+            // Using 'bonnie' as the domain for consistency across your app
+            val api = "https://bonnie.alwaysdata.net/api/mpesa_payment"
 
-            // create a request params
             val params = RequestParams()
             params.put("amount", product_cost)
-            params.put("phone", phoneNumber) // Use the validated/trimmed number
-          
+            params.put("phone", phoneNumber)
 
-            // create an API helper
+            Toast.makeText(this, "Initiating STK Push for Ksh $product_cost...", Toast.LENGTH_LONG).show()
+
             val helper = ApiHelper(applicationContext)
-            
-            // 3. Initiate the payment request
-            helper.post(api, params)
-
-
-            // Optional: create an intent to open the M-Pesa app (Sim ToolKit)
-            // Note: Most modern M-Pesa integrations use STK Push, so opening the app manually is often not needed.
-            val stkIntent = Intent(Intent.ACTION_VIEW)
-            stkIntent.setPackage("com.android.stk")
-
-            try {
-                startActivity(stkIntent)
-            } catch (e: Exception) {
-                // STK app might not be accessible directly on all devices
-            }
+            // Use the new postPayment method that handles the STK response properly
+            helper.postPayment(api, params)
         }
     }
 }
